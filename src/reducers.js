@@ -1,11 +1,11 @@
 import * as types from './actions';
 
-function search(state = {}, action) {
+function searchResults(state = {}, action) {
   switch (action.type) {
     case types.SEARCH_TOP_SUCCESS:
       return {
         ...state,
-        [action.meta.text]: action.payload
+        [action.meta.text]: action.payload.items
       };
     default:
       return state;
@@ -13,5 +13,5 @@ function search(state = {}, action) {
 }
 
 export default {
-  search
+  searchResults
 }

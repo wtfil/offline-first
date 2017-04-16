@@ -13,7 +13,8 @@ export default store => dispatch => async action => {
   }
   const url = API_HOST + action.url + '?' + qs.stringify(action.query);
   const opts = {
-    method: action.method || 'get'
+    method: action.method || 'get',
+    headers: action.headers
   };
 
   try {

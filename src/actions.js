@@ -3,10 +3,10 @@ export const searchTop = text => ({
   url: 'search/repositories',
   query: {
     q: text,
-    sort: 'stargazers_count'
+    sort: 'stars'
   },
   meta: {text},
-  types: {
+  types:  {
     success: SEARCH_TOP_SUCCESS
   }
 })
