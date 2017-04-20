@@ -32,10 +32,6 @@ class Search extends Component {
     this.onSearch(value);
   }
 
-  componentWillMount() {
-    this.onChange({target: {value: 'js'}});
-  }
-
   render() {
     const {searchResults} = this.props;
     const {value} = this.state;
@@ -47,6 +43,7 @@ class Search extends Component {
       	  value={value}
 	  onChange={::this.onChange}
       	  placeholder='search'
+      	  autoFocus
       	/>
       </form>
       {currentResults &&
