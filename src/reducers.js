@@ -21,7 +21,20 @@ function repositories(state = [], action) {
   }
 }
 
+function onlineStatus(state = {isOnline: true}, action) {
+  switch (action.type) {
+    case types.CHANGE_ONLINE_STATUS:
+      return {
+        ...state,
+        isOnline: action.payload
+      }
+    default:
+      return state;
+  }
+}
+
 export default {
   searchResults,
+  onlineStatus,
   repositories
 }
