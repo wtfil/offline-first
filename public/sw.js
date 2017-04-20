@@ -45,20 +45,5 @@ self.addEventListener('fetch', e => {
       	})
     })
   );
-
-  return;
-  fetch(requestClone).then(response => {
-    if(!response || response.status !== 200) {
-      return response;
-    }
-    const responseClone = response.clone();
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('add to cache', request.url);
-      cache.put(e.request, responseClone);
-    });
-
-    e.respondWith(response);
-    return response;
-  });
 });
 

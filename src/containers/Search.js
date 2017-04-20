@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import debounce from 'debounce';
 
@@ -40,7 +41,7 @@ class Search extends Component {
     const {value} = this.state;
     const currentResults = searchResults[value];
 
-    return <div className='container'>
+    return <div>
       <form>
       	<input
       	  value={value}
@@ -51,7 +52,12 @@ class Search extends Component {
       {currentResults &&
       	<ul className='collection'>
       	  {currentResults.map(item =>
-      	    <li key={item.full_name} className='collection-item'>{item.full_name}</li>
+      	    <li key={item.full_name} className='collection-item'>
+      	      <Link
+      	      	to={'/' + item.full_name}
+		children={item.full_name}
+      	      />
+      	    </li>
       	  )}
       	</ul>
       }
