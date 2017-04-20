@@ -5,6 +5,9 @@ import {BrowserRouter} from 'react-router-dom';
 
 import store from './store';
 import routes from './routes';
+import initServiceWorker from './utils/initServiceWorker';
+
+initServiceWorker();
 
 const root = (
   <Provider store={store}>

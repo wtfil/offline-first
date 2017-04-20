@@ -39,7 +39,6 @@ class Search extends Component {
     const {searchResults} = this.props;
     const {value} = this.state;
     const currentResults = searchResults[value];
-    console.log(currentResults);
 
     return <div className='container'>
       <form>
@@ -50,22 +49,11 @@ class Search extends Component {
       	/>
       </form>
       {currentResults &&
-      	<div>
+      	<ul className='collection'>
       	  {currentResults.map(item =>
-      	    <div key={item.full_name} className='card'>
-      	      <div className='card-content'>
-      	      	<span className='card-title'>{item.full_name}</span>
-      	      	<p>yo</p>
-      	      </div>
-      	      <div className='card-action'>
-      	      	<button className='waves-effect waves-light btn'>
-      	      	  <i className='material-icons left' children='cloud'/>
-		  button
-		</button>
-      	      </div>
-      	    </div>
+      	    <li key={item.full_name} className='collection-item'>{item.full_name}</li>
       	  )}
-      	</div>
+      	</ul>
       }
     </div>
   }
