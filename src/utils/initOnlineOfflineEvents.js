@@ -7,6 +7,7 @@ export default function initOnlineOfflineEvents(store) {
   window.addEventListener('online', () => setStatus(true))
   window.addEventListener('offline', () => setStatus(false))
 
+  /*
   setInterval(async () => {
     try {
       await fetch('https://status.github.com/api/status.json', {mode: 'no-cors'})
@@ -15,4 +16,5 @@ export default function initOnlineOfflineEvents(store) {
       setStatus(false)
     }
   }, 5000)
+  */
 }

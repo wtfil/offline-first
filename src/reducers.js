@@ -33,7 +33,25 @@ function onlineStatus(state = {isOnline: true}, action) {
   }
 }
 
+function auth(state = {token: null}, action) {
+  switch (action.type) {
+    case types.SET_AUTH_TOKEN:
+      return {
+        ...state,
+        token: action.payload
+      }
+    case types.LOGOUT:
+      return {
+        ...state,
+        token: null
+      }
+    default:
+      return state;
+  }
+}
+
 export default {
+  auth,
   searchResults,
   onlineStatus,
   repositories
