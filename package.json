@@ -7,7 +7,7 @@
     "build": "webpack && cp public/* build",
     "heroku-postbuild": "npm run build",
     "deploy": "git push heroku master",
-    "start": "http-server -p ${NODE_PORT:-8080} build",
+    "start": "./node_modules/.bin/http-server -p ${NODE_PORT:-8080} build",
     "start-dev": "webpack-dev-server"
   },
   "dependencies": {
