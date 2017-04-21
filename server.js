@@ -1,16 +1,19 @@
 const express = require('express');
 const path = require('path');
-const githubOAuth = require('github-oauth')({
-    githubClient: process.env.GITHUB_CLIENT,
-    githubSecret: process.env.GITHUB_SECRET,
-    baseURL: 'http://localhost:9002',
-    loginURI: '/login',
-    callbackURI: '/callback',
-})
+const authFactory = require('github-oauth');
 
 const app = express();
-const port = process.env.PORT || 9002;
 const env = process.env.NODE_ENV || 'development';
+const port = process.env.PORT || 9002;
+const githubOAuth = authFactory({
+  githubClient: process.env.GITHUB_CLIENT,
+  githubSecret: process.env.GITHUB_SECRET,
+  baseURL: env === 'development' ?
+    'http://localhost:9002' :
+    'https://offlinefirst.herokuapp.com',
+  loginURI: '/login',
+  callbackURI: '/callback',
+})
 
 if (env === 'development') {
   const webpack = require('webpack');
