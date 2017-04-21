@@ -7,12 +7,13 @@
     "build": "webpack && cp public/* build",
     "heroku-postbuild": "npm run build",
     "deploy": "git push heroku master",
-    "start": "./node_modules/.bin/http-server -p ${NODE_PORT:-8080} build",
+    "start": "http-server -p ${NODE_PORT:-8080} build",
     "start-dev": "webpack-dev-server"
   },
   "dependencies": {
     "classnames": "2.2.5",
     "debounce": "1.0.0",
+    "http-server": "^0.9.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-redux": "5.0.3",
