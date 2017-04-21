@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack && cp public/* build",
-    "deploy": "npm run build && git push heroku master",
+    "heroku-postbuild": "npm run build",
+    "deploy": "git push heroku master",
     "start": "http-server -p ${NODE_PORT:-8080} build",
     "start-dev": "webpack-dev-server"
   },
