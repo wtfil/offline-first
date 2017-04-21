@@ -38,7 +38,7 @@ class Search extends Component {
     const currentResults = searchResults[value];
 
     return <div>
-      <form>
+      <form onSubmit={e => e.preventDefault()}>
       	<input
       	  value={value}
 	  onChange={::this.onChange}
