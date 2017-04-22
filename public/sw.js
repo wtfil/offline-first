@@ -29,7 +29,6 @@ self.addEventListener('fetch', e => {
       return fetch(requestClone)
       	.then(response => {
 	  if(!response || response.status >= 400 || ignoreCache) {
-	    console.log('ignore', url);
       	    return response;
       	  }
       	  const responseClone = response.clone();

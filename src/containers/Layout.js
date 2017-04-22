@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {logout, getAuthFromStorage} from '../actions';
+import {logout, getUser, getAuthFromStorage} from '../actions';
 
 @connect(state => state)
 export default class Layout extends Component {
   componentWillMount() {
     this.props.dispatch(getAuthFromStorage());
+    this.props.dispatch(getUser());
   }
   render() {
     const {dispatch, onlineStatus, auth, children} = this.props;
@@ -43,6 +44,14 @@ class Header extends Component {
           }
         </ul>
         <ul className='right'>
+          {auth.user &&
+            <li>
+              <div className='chip'>
+                <img src={auth.user.avatar_url}/>
+                <span>{auth.user.login}</span>
+              </div>
+            </li>
+          }
           <li>
             {auth.token ?
                 <a onClick={::this.onLogout} children='Logout'/> :

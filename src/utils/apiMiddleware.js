@@ -11,15 +11,24 @@ export default store => dispatch => async action => {
   if (action.types && action.types.start) {
     dispatch({type: action.start, meta});
   }
+  const {auth} = store.getState();
   const url = API_HOST + action.url + '?' + qs.stringify(action.query);
+  const headers = {...action.headers};
+  if (auth.token) {
+    headers.Authorization = 'token ' + auth.token;
+  }
   const opts = {
     method: action.method || 'get',
-    headers: action.headers
+    headers
   };
 
   try {
     const res = await fetch(url, opts);
     const payload = await res.json();
+    if (res.status >= 400) {
+      const error = Object.assign(new Error(), payload);
+      throw error;
+    }
     if (action.types && action.types.success) {
       dispatch({type: action.types.success, payload, meta});
     }

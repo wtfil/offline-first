@@ -42,9 +42,22 @@ function auth(state = {token: null}, action) {
       }
     case types.LOGOUT:
       return {
-        ...state,
         token: null
       }
+    case types.GET_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload
+      }
+    default:
+      return state;
+  }
+}
+
+function stars(state = [], action) {
+  switch (action.type) {
+    case types.GET_STARS_SUCCESS:
+      return action.payload.map(item => item.full_name);
     default:
       return state;
   }
@@ -52,6 +65,7 @@ function auth(state = {token: null}, action) {
 
 export default {
   auth,
+  stars,
   searchResults,
   onlineStatus,
   repositories

@@ -23,6 +23,22 @@ export const getRepository = params => ({
   }
 })
 
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const getUser = () => ({
+  url: 'user',
+  types: {
+    success: GET_USER_SUCCESS
+  }
+})
+
+export const GET_STARS_SUCCESS = 'GET_STARS_SUCCESS';
+export const getStars = () => ({
+  url: 'user/starred',
+  types: {
+    success: GET_STARS_SUCCESS
+  }
+})
+
 export const CHANGE_ONLINE_STATUS = 'CHANGE_ONLINE_STATUS';
 export const changeOnlineStatus = isOnline => ({
   type: CHANGE_ONLINE_STATUS,
