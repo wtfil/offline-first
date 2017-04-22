@@ -12,8 +12,12 @@ export default store => dispatch => async action => {
     dispatch({type: action.start, meta});
   }
   const {auth} = store.getState();
-  const url = API_HOST + action.url + '?' + qs.stringify(action.query);
-  const headers = {...action.headers};
+  const url = API_HOST + action.url +
+    (action.query ? ('?' + qs.stringify(action.query)) : '');
+  const headers = {
+    ...action.headers,
+    Accept: 'application/json'
+  };
   if (auth.token) {
     headers.Authorization = 'token ' + auth.token;
   }
@@ -24,7 +28,10 @@ export default store => dispatch => async action => {
 
   try {
     const res = await fetch(url, opts);
-    const payload = await res.json();
+    const payload = res.statusText === 'No Content' ?
+      '' :
+      await res.json();
+
     if (res.status >= 400) {
       const error = Object.assign(new Error(), payload);
       throw error;

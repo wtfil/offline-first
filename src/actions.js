@@ -39,6 +39,23 @@ export const getStars = () => ({
   }
 })
 
+export const TOGGLE_STAR_SUCCESS = 'TOGGLE_STAR_SUCCESS';
+export const toggleStar = fullName => (dispatch, getState) => {
+  const {stars} = getState();
+  const method = stars.includes(fullName) ? 'delete': 'put';
+  return dispatch({
+    url: 'user/starred/' + fullName,
+    meta: {
+      fullName,
+      method
+    },
+    method,
+    types: {
+      success: TOGGLE_STAR_SUCCESS
+    }
+  })
+}
+
 export const CHANGE_ONLINE_STATUS = 'CHANGE_ONLINE_STATUS';
 export const changeOnlineStatus = isOnline => ({
   type: CHANGE_ONLINE_STATUS,

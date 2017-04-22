@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import cx from 'classnames';
 
-import {getStars, getRepository} from '../actions';
+import {getStars, toggleStar, getRepository} from '../actions';
 
 @connect(state => state)
 export default class RepositoryPage extends Component {
-  componentWillMount() {
+  async componentWillMount() {
     const {dispatch, match: {params}} = this.props;
+    await dispatch(getStars());
     dispatch(getRepository(params));
-    dispatch(getStars());
   }
   render() {
-    const {repositories, stars, match: {params}} = this.props;
+    const {dispatch, repositories, stars, match: {params}} = this.props;
     const fullName = params.user + '/' + params.repo;
     const repository = repositories.find(item => item.full_name === fullName);
 
@@ -22,7 +22,7 @@ export default class RepositoryPage extends Component {
     return <Repository
       repository={repository}
       stars={stars}
-      onToggleStar={() => {}}
+      onToggleStar={() => dispatch(toggleStar(fullName))}
     />
   }
 }
@@ -32,22 +32,19 @@ function Repository({repository, stars, onToggleStar}) {
   return <div>
     <h4>{repository.full_name}</h4>
     <h6>{repository.description}</h6>
-    <div>
+    <div className='chip' onClick={onToggleStar}>
       <i
-        onClick={onToggleStar}
-        className={cx('material-icons', {'amber-text': hasStar})}
+        className={cx('close material-icons', {'amber-text': hasStar})}
         children='star'
       />
-      <span>
-      	{repository.stargazers_count}
-      </span>
+      {repository.stargazers_count}
     </div>
-    <div>
-      <i className='material-icons' children='visibility'/>
+    <div className='chip'>
+      <i className='close material-icons' children='visibility'/>
       {repository.subscribers_count}
     </div>
-    <div>
-      <i className='material-icons' children='call_split'/>
+    <div className='chip'>
+      <i className='close material-icons' children='call_split'/>
       {repository.forks}
     </div>
   </div>

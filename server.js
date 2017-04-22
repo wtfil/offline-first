@@ -13,6 +13,7 @@ const githubOAuth = authFactory({
     'https://offlinefirst.herokuapp.com',
   loginURI: '/login',
   callbackURI: '/callback',
+  scope:  ['repo', 'user']
 })
 
 if (env === 'development') {

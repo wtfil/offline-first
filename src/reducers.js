@@ -58,6 +58,10 @@ function stars(state = [], action) {
   switch (action.type) {
     case types.GET_STARS_SUCCESS:
       return action.payload.map(item => item.full_name);
+    case types.TOGGLE_STAR_SUCCESS:
+      return action.meta.method === 'put' ?
+        state.concat(action.meta.fullName) :
+        state.filter(item => item !== action.meta.fullName);
     default:
       return state;
   }
