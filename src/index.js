@@ -8,7 +8,7 @@ import routes from './routes';
 import initServiceWorker from './utils/initServiceWorker';
 import initOnlineOfflineEvents from './utils/initOnlineOfflineEvents';
 
-/*initServiceWorker();*/
+initServiceWorker();
 initOnlineOfflineEvents(store);
 
 const root = (

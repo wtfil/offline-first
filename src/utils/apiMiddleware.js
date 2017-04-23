@@ -44,6 +44,5 @@ export default store => dispatch => async action => {
     if (action.types && action.types.error) {
       dispatch({type: action.types.error, error: e, meta});
     }
-    throw e;
   }
 }

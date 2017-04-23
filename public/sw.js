@@ -22,7 +22,6 @@ self.addEventListener('fetch', e => {
   const url = request.url;
   const path = url.split('?')[0];
   const ignoreCache = IGNORE_CACHE.includes(path);
-  console.log('fetch', url);
 
   e.respondWith(
     caches.open(CACHE_NAME).then(cache => {
@@ -32,7 +31,6 @@ self.addEventListener('fetch', e => {
       	    return response;
       	  }
       	  const responseClone = response.clone();
-      	  console.log('put in cache', url);
       	  cache.put(request, responseClone);
       	  return response;
       	})

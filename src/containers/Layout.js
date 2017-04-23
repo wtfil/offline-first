@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {logout, getUser, getAuthFromStorage} from '../actions';
 
+@withRouter
 @connect(state => state)
 export default class Layout extends Component {
   componentWillMount() {
