@@ -28,8 +28,8 @@ export default store => dispatch => async action => {
 
   try {
     const res = await fetch(url, opts);
-    const payload = res.statusText === 'No Content' ?
-      '' :
+    const payload = action.json === false ?
+      await res.text() :
       await res.json();
 
     if (res.status >= 400) {

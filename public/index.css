@@ -1,0 +1,17 @@
+html {
+	min-width: 320px;
+}
+.repository {
+	margin-top: 10px;
+}
+.repository__head {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.repository__chips {
+	margin-top: 1.14rem;
+}
+.repository__readme {
+	overflow: hidden;
+}

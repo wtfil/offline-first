@@ -9,6 +9,9 @@ module.exports = {
     filename: 'index.js'
   },
   devtool: 'source-map',
+  resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+  },
   module: {
     loaders: [
       {

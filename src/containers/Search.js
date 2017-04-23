@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import qs from 'querystring';
 
-import {searchTop} from '../actions';
-import Search from '../components/Search';
+import {searchTop} from 'actions';
+import Search from 'components/Search';
 
 @connect(state => state)
 export default class SearchPage extends Component {

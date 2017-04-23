@@ -1,4 +1,4 @@
-import {changeOnlineStatus} from '../actions';
+import {changeOnlineStatus} from 'actions';
 
 export default function initOnlineOfflineEvents(store) {
   const setStatus = status => store.dispatch(changeOnlineStatus(status));

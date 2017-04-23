@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import qs from 'querystring';
 
-import {setAuthToken, getUser} from '../actions';
+import {setAuthToken, getUser} from 'actions';
 
 @connect(state => state)
 export default class SaveGithubToken extends Component {

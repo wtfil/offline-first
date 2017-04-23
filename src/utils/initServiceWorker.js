@@ -10,6 +10,8 @@ export default async function initServiceWorker() {
             location.reload();
           }
         })
+      } else {
+        res.update();
       }
     } catch (e) {
       console.error(e);

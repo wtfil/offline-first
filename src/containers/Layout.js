@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {logout, getUser, getAuthFromStorage} from '../actions';
+import {logout, getUser, getAuthFromStorage} from 'actions';
 
 @withRouter
 @connect(state => state)

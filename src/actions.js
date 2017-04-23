@@ -16,10 +16,23 @@ export const searchTop = text => ({
 })
 
 export const GET_REPOSITORY_SUCCESS = 'GET_REPOSITORY_SUCCESS';
-export const getRepository = params => ({
-  url: 'repos/' + params.user + '/' + params.repo,
+export const getRepository = fullName => ({
+  url: 'repos/' + fullName,
   types: {
     success: GET_REPOSITORY_SUCCESS
+  }
+})
+
+export const GET_README_SUCCESS = 'GET_README_SUCCESS';
+export const getReadme = fullName => ({
+  url: 'repos/' + fullName + '/readme',
+  json: false,
+  meta: {fullName},
+  headers: {
+    accept: 'application/vnd.github.VERSION.html'
+  },
+  types: {
+    success: GET_README_SUCCESS
   }
 })
 
@@ -45,6 +58,7 @@ export const toggleStar = fullName => (dispatch, getState) => {
   const method = stars.includes(fullName) ? 'delete': 'put';
   return dispatch({
     url: 'user/starred/' + fullName,
+    json: false,
     meta: {
       fullName,
       method

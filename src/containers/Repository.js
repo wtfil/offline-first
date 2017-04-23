@@ -1,27 +1,41 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Repository from '../components/Repository';
-import {getStars, toggleStar, getRepository} from '../actions';
+import {
+  getStars,
+  toggleStar,
+  getRepository,
+  getReadme
+} from 'actions';
+import Repository from 'components/Repository';
+
 
 @connect(state => state)
 export default class RepositoryPage extends Component {
+  getFullName() {
+    const {match: {params}} = this.props;
+    return params.user + '/' + params.repo;
+  }
   async componentWillMount() {
-    const {dispatch, match: {params}} = this.props;
+    const {dispatch} = this.props;
+    const fullName = this.getFullName();
     await dispatch(getStars());
-    dispatch(getRepository(params));
+    dispatch(getReadme(fullName));
+    dispatch(getRepository(fullName));
   }
   render() {
-    const {dispatch, repositories, stars, match: {params}} = this.props;
-    const fullName = params.user + '/' + params.repo;
+    const {dispatch, repositories, stars, readmes} = this.props;
+    const fullName = this.getFullName();
     const repository = repositories.find(item => item.full_name === fullName);
+    const readme = readmes[fullName];
 
     if (!repository) {
       return null
     }
     return <Repository
       repository={repository}
-      stars={stars}
+      readme={readme}
+      hasStar={stars.includes(fullName)}
       onToggleStar={() => dispatch(toggleStar(fullName))}
     />
   }

@@ -3,11 +3,12 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 
-import store from './store';
+import createStore from './createStore';
 import routes from './routes';
-import initServiceWorker from './utils/initServiceWorker';
-import initOnlineOfflineEvents from './utils/initOnlineOfflineEvents';
+import initServiceWorker from 'utils/initServiceWorker';
+import initOnlineOfflineEvents from 'utils/initOnlineOfflineEvents';
 
+const store = createStore();
 initServiceWorker();
 initOnlineOfflineEvents(store);
 

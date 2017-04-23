@@ -12,8 +12,8 @@
   "dependencies": {
     "classnames": "2.2.5",
     "debounce": "1.0.0",
-    "express": "^4.15.2",
-    "github-oauth": "^0.2.2",
+    "express": "4.15.2",
+    "github-oauth": "0.2.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-redux": "5.0.3",

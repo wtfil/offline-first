@@ -21,6 +21,18 @@ function repositories(state = [], action) {
   }
 }
 
+function readmes(state = {}, action) {
+  switch (action.type) {
+    case types.GET_README_SUCCESS:
+      return {
+        ...state,
+        [action.meta.fullName]: action.payload
+      }
+    default:
+      return state;
+  }
+}
+
 function onlineStatus(state = {isOnline: true}, action) {
   switch (action.type) {
     case types.CHANGE_ONLINE_STATUS:
@@ -70,6 +82,7 @@ function stars(state = [], action) {
 export default {
   auth,
   stars,
+  readmes,
   searchResults,
   onlineStatus,
   repositories
