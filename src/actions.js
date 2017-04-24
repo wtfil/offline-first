@@ -59,6 +59,7 @@ export const toggleStar = fullName => (dispatch, getState) => {
   return dispatch({
     url: 'user/starred/' + fullName,
     json: false,
+    retry: true,
     meta: {
       fullName,
       method

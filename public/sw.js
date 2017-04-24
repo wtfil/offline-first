@@ -9,7 +9,7 @@ const IGNORE_CACHE = [
   'http://localhost:9002/sockjs-node/info'
 ];
 
-self.skipWaiting();
+/*self.skipWaiting();*/
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE_NAME).then(cache => {
@@ -21,20 +21,17 @@ self.addEventListener('install', e => {
 self.addEventListener('fetch', e => {
 
   const request = e.request;
-  const requestClone = request.clone();
   const url = request.url;
   const path = url.split('?')[0];
-  const ignoreCache = IGNORE_CACHE.includes(path);
+  const ignoreCache = request.method !== 'GET' || IGNORE_CACHE.includes(path);
 
   e.respondWith(
     caches.open(CACHE_NAME).then(cache => {
-      return fetch(requestClone)
+      return fetch(request.clone())
       	.then(response => {
-	  if(request.method !== 'GET' || !response || response.status >= 400 || ignoreCache) {
-      	    return response;
+	  if(request && response.status < 400 && !ignoreCache) {
+      	    cache.put(request, response.clone());
       	  }
-      	  const responseClone = response.clone();
-      	  cache.put(request, responseClone);
       	  return response;
       	})
 	.catch(err => {
@@ -44,11 +41,7 @@ self.addEventListener('fetch', e => {
 	  console.log('fallback to cache', url);
 	  return caches.match(request)
 	})
-      	.catch(err => {
-      	  console.log('not found in cache', url, err);
-	  throw err;
-      	})
     })
-  );
-});
+  )
+})
 
