@@ -1,17 +1,20 @@
-const CACHE_NAME = 'v2';
+const CACHE_NAME = 'v8';
 const FILES = [
   '/',
-  '/index.js',
-  '/index.css'
+  '/index.css',
+  '//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css',
+  '//fonts.googleapis.com/icon?family=Material+Icons',
+  '//fonts.gstatic.com/s/materialicons/v22/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2'
 ];
 const IGNORE_CACHE = [
   'https://status.github.com/api/status.json',
-  'http://localhost:9002/sockjs-node/info'
+  /sockjs\-node/
 ];
-
-/*self.skipWaiting();*/
+var origin;
+self.skipWaiting();
 
 self.addEventListener('install', e => {
+  origin = e.target.location.origin;
   e.waitUntil(caches.open(CACHE_NAME).then(cache => {
     console.log('install caches');
     return cache.addAll(FILES);
@@ -22,8 +25,7 @@ self.addEventListener('fetch', e => {
 
   const request = e.request;
   const url = request.url;
-  const path = url.split('?')[0];
-  const ignoreCache = request.method !== 'GET' || IGNORE_CACHE.includes(path);
+  const ignoreCache = request.method !== 'GET' || IGNORE_CACHE.some(pattern => url.match(pattern));
 
   e.respondWith(
     caches.open(CACHE_NAME).then(cache => {
@@ -41,7 +43,16 @@ self.addEventListener('fetch', e => {
 	  console.log('fallback to cache', url);
 	  return caches.match(request)
 	})
+	.then(response => {
+	  console.log('check fallback', request.url, response);
+	  if (response) {
+	    return response;
+	  }
+	  if (request.url.indexOf(origin) === 0 && !ignoreCache) {
+	    console.log('super fallback');
+	    return caches.match('/');
+	  }
+	})
     })
   )
 })
-
