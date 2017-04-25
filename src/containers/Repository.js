@@ -8,7 +8,7 @@ import {
   getReadme
 } from 'actions';
 import Repository from 'components/Repository';
-
+import Loader from 'components/Loader';
 
 @connect(state => state)
 export default class RepositoryPage extends Component {
@@ -30,7 +30,7 @@ export default class RepositoryPage extends Component {
     const readme = readmes[fullName];
 
     if (!repository) {
-      return null
+      return <Loader/>
     }
     return <Repository
       repository={repository}

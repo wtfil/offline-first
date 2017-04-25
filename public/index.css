@@ -15,3 +15,7 @@ html {
 .repository__readme {
 	overflow: hidden;
 }
+
+.large-margin-top {
+	margin-top: 20px;
+}

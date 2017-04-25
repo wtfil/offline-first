@@ -44,12 +44,10 @@ self.addEventListener('fetch', e => {
 	  return caches.match(request)
 	})
 	.then(response => {
-	  console.log('check fallback', request.url, response);
 	  if (response) {
 	    return response;
 	  }
 	  if (request.url.indexOf(origin) === 0 && !ignoreCache) {
-	    console.log('super fallback');
 	    return caches.match('/');
 	  }
 	})

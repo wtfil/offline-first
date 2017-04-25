@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import debounce from 'debounce';
 
+import Loader from './Loader';
+
 export default class Search extends Component {
   constructor(props) {
     super();
@@ -14,7 +16,9 @@ export default class Search extends Component {
   onChange(e) {
     const {value} = e.target;
     this.setState({value});
-    this.onSearch(value);
+    if (value) {
+      this.onSearch(value);
+    }
   }
 
   render() {
@@ -31,17 +35,23 @@ export default class Search extends Component {
       	  autoFocus
       	/>
       </form>
-      {currentResults &&
-      	<ul className='collection'>
-      	  {currentResults.map(item =>
-      	    <li key={item.full_name} className='collection-item'>
-      	      <Link
-      	      	to={'/' + item.full_name}
-		        children={item.full_name}
-      	      />
-      	    </li>
-      	  )}
-      	</ul>
+      {value &&
+      	(currentResults ?
+      	  (currentResults.length ?
+      	    <ul className='collection'>
+      	      {currentResults.map(item =>
+      	      	<li key={item.full_name} className='collection-item'>
+      	      	  <Link
+      	      	    to={'/' + item.full_name}
+		            children={item.full_name}
+      	      	  />
+      	      	</li>
+      	      )}
+      	    </ul> :
+      	    null
+      	  ) :
+      	  <Loader/>
+      	)
       }
     </div>
   }
