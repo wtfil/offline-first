@@ -9,7 +9,7 @@ export default store => dispatch => async action => {
   const meta = action.meta || {};
 
   if (action.types && action.types.start) {
-    dispatch({type: action.start, meta});
+    dispatch({type: action.types.start, meta});
   }
   const {auth} = store.getState();
   const url = API_HOST + action.url +

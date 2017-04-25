@@ -52,6 +52,7 @@ export const getStars = () => ({
   }
 })
 
+export const TOGGLE_STAR_START = 'TOGGLE_STAR_START';
 export const TOGGLE_STAR_SUCCESS = 'TOGGLE_STAR_SUCCESS';
 export const toggleStar = fullName => (dispatch, getState) => {
   const {stars} = getState();
@@ -66,6 +67,7 @@ export const toggleStar = fullName => (dispatch, getState) => {
     },
     method,
     types: {
+      start: TOGGLE_STAR_START,
       success: TOGGLE_STAR_SUCCESS
     }
   })

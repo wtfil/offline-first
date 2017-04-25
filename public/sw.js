@@ -10,7 +10,9 @@ const IGNORE_CACHE = [
   'https://status.github.com/api/status.json',
   /sockjs\-node/
 ];
+const failedRequests = [];
 var origin;
+
 self.skipWaiting();
 
 self.addEventListener('install', e => {
@@ -37,6 +39,9 @@ self.addEventListener('fetch', e => {
       	  return response;
       	})
 	.catch(err => {
+	  if (request.method !== 'GET') {
+	    failedRequests.push(request.clone());
+	  }
 	  if (ignoreCache) {
 	    throw err
 	  }
@@ -53,4 +58,21 @@ self.addEventListener('fetch', e => {
 	})
     })
   )
+})
+
+async function retryRequests() {
+  console.log('retry', failedRequests.length, 'requests');
+  try {
+    while (failedRequests.length) {
+      console.log('retry', failedRequests[0].url);
+      await fetch(failedRequests[0].clone());
+      failedRequests.splice(0, 1);
+    }
+  } catch (e) {}
+}
+
+self.addEventListener('sync', e => {
+  if (e.tag === 'retry-requests') {
+    e.waitUntil(retryRequests());
+  }
 })
