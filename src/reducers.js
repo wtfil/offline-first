@@ -74,6 +74,8 @@ function stars(state = [], action) {
       return action.meta.method === 'put' ?
         state.concat(action.meta.fullName) :
         state.filter(item => item !== action.meta.fullName);
+    case types.LOGOUT:
+      return [];
     default:
       return state;
   }

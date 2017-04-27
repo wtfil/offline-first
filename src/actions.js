@@ -39,6 +39,7 @@ export const getReadme = fullName => ({
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const getUser = () => ({
   url: 'user',
+  onlyAuthorized: true,
   types: {
     success: GET_USER_SUCCESS
   }
@@ -47,6 +48,7 @@ export const getUser = () => ({
 export const GET_STARS_SUCCESS = 'GET_STARS_SUCCESS';
 export const getStars = () => ({
   url: 'user/starred',
+  onlyAuthorized: true,
   types: {
     success: GET_STARS_SUCCESS
   }
@@ -55,7 +57,10 @@ export const getStars = () => ({
 export const TOGGLE_STAR_START = 'TOGGLE_STAR_START';
 export const TOGGLE_STAR_SUCCESS = 'TOGGLE_STAR_SUCCESS';
 export const toggleStar = fullName => (dispatch, getState) => {
-  const {stars} = getState();
+  const {stars, auth} = getState();
+  if (!auth.token) {
+    return;
+  }
   const method = stars.includes(fullName) ? 'delete': 'put';
   return dispatch({
     url: 'user/starred/' + fullName,

@@ -7,11 +7,15 @@ export default store => dispatch => async action => {
     return dispatch(action);
   }
   const meta = action.meta || {};
+  const {auth} = store.getState();
+
+  if (action.onlyAuthorized && !auth.token) {
+    return;
+  }
 
   if (action.types && action.types.start) {
     dispatch({type: action.types.start, meta});
   }
-  const {auth} = store.getState();
   const url = API_HOST + action.url +
     (action.query ? ('?' + qs.stringify(action.query)) : '');
   const headers = {
